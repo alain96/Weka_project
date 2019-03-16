@@ -10,7 +10,7 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 
-public class TransformRaw {
+public class Raw2Bow {
 	public static void main(String[] args) {
 		try {
 			FileReader fi = new FileReader(args[0]);
