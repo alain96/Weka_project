@@ -1,6 +1,9 @@
 package kodea;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.core.Instances;
@@ -28,6 +31,13 @@ public class AttributeSelectionClass{
         filter.setSearch(search);
         filter.setInputFormat(data);
         Instances newData = Filter.useFilter(data,filter);
+        
+        BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
+        writer.write(newData.toString());
+        writer.newLine();
+        writer.flush();
+        writer.close();
+        System.out.println("Arff berria: " + args[1]);
 	}
 
 }
