@@ -38,11 +38,9 @@ public class Raw2Bow {
 		filter.setMinTermFreq(1);
 		filter.setOutputWordCounts(true);
 		filter.setPeriodicPruning(-1.0);
-		// filter.setUseStoplist(false);
 		filter.setWordsToKeep(Integer.MAX_VALUE);
 		try {
 			filter.setInputFormat(data);
-			// filter.setDictionaryFileToSaveTo(new File(dictionary+"Dictionary.txt"));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

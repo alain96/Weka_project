@@ -18,7 +18,7 @@ public class AttributeSelectionClass{
 
 	public static void main(String[] args) {
 		try {
-			FileReader fi = new FileReader(args[0]); // BOW o TF_IDF
+			FileReader fi = new FileReader(args[0]);
 			Instances data = new Instances(fi);
 			data.setClass(data.attribute("class"));
 			Ranker ranker = new Ranker();
@@ -46,7 +46,7 @@ public class AttributeSelectionClass{
 			System.out.println("Arff berria: " + args[1]);
 			String[] argumentuak = new String[2];
 			argumentuak[0] = args[0]; // trainBOW
-			argumentuak[1] = args[2]; // devBOW
+			argumentuak[1] = args[2]; // testBOW
 			System.out.println("Bateraggarria egiten");
 			new BateragarriakEgin();
 
