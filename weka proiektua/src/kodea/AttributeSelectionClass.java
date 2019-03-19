@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import weka.attributeSelection.AttributeSelection;
-import weka.attributeSelection.InfoGainAttributeEval;
+import weka.attributeSelection.ClassifierAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -20,26 +20,23 @@ public class AttributeSelectionClass{
 		try {
 			FileReader fi = new FileReader(args[0]); // BOW o TF_IDF
 			Instances data = new Instances(fi);
-			data.setClass(data.attribute("@@class@@"));
+			data.setClass(data.attribute("class"));
 			Ranker ranker = new Ranker();
-			InfoGainAttributeEval evaluator = new InfoGainAttributeEval();
+			ClassifierAttributeEval evaluator = new ClassifierAttributeEval();
 			AttributeSelection as = new AttributeSelection();
-			ranker.setThreshold(0.0);
-			ranker.setNumToSelect(1000);
+			ranker.setThreshold(-1.7976931348623157E308);
+			ranker.setNumToSelect(-1);
 			as.setSearch(ranker);
 			as.setEvaluator(evaluator);
 			Instances newData = null;
-			try {
-				as.SelectAttributes(data);
-				selectedAttributes = as.selectedAttributes();
-				Remove remove = new Remove();
-				remove.setAttributeIndicesArray(selectedAttributes);
-				remove.setInvertSelection(true);
-				remove.setInputFormat(data);
-				newData = Filter.useFilter(data, remove);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
+			as.SelectAttributes(data);
+			selectedAttributes = as.selectedAttributes();
+			Remove remove = new Remove();
+			remove.setAttributeIndicesArray(selectedAttributes);
+			remove.setInvertSelection(true);
+			remove.setInputFormat(data);
+			newData = Filter.useFilter(data, remove);
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
 			writer.write(newData.toString());
@@ -56,10 +53,10 @@ public class AttributeSelectionClass{
 			try {
 				BateragarriakEgin.main(argumentuak, selectedAttributes);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
