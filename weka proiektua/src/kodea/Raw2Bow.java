@@ -31,7 +31,7 @@ public class Raw2Bow {
 
 		StringToWordVector filter = new StringToWordVector();
 
-		filter.setAttributeIndices("1");
+		filter.setAttributeIndices("7");
 		filter.setDoNotOperateOnPerClassBasis(false);
 		filter.setInvertSelection(false);
 		filter.setLowerCaseTokens(true);

@@ -19,8 +19,8 @@ public class BateragarriakEgin {
 			DataSource dev = new DataSource(args[1]);
 			Instances dataTrain = train.getDataSet();
 			Instances dataDev = dev.getDataSet();
-			dataTrain.setClass(dataTrain.attribute("class"));
-			dataDev.setClass(dataDev.attribute("class"));
+			dataTrain.setClass(dataTrain.attribute("@@class@@"));
+			dataDev.setClass(dataDev.attribute("@@class@@"));
 			Remove remove = new Remove();
 
 			remove.setAttributeIndicesArray(selectedAttributes);

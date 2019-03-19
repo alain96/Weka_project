@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import weka.attributeSelection.AttributeSelection;
-import weka.attributeSelection.ClassifierAttributeEval;
+import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -18,25 +18,28 @@ public class AttributeSelectionClass{
 
 	public static void main(String[] args) {
 		try {
-			FileReader fi = new FileReader(args[0]);
+			FileReader fi = new FileReader(args[0]); // BOW o TF_IDF
 			Instances data = new Instances(fi);
-			data.setClass(data.attribute("class"));
+			data.setClass(data.attribute("@@class@@"));
 			Ranker ranker = new Ranker();
-			ClassifierAttributeEval evaluator = new ClassifierAttributeEval();
+			InfoGainAttributeEval evaluator = new InfoGainAttributeEval();
 			AttributeSelection as = new AttributeSelection();
-			ranker.setThreshold(-1.7976931348623157E308);
-			ranker.setNumToSelect(-1);
+			ranker.setThreshold(0.0);
+			ranker.setNumToSelect(1000);
 			as.setSearch(ranker);
 			as.setEvaluator(evaluator);
 			Instances newData = null;
-			
-			as.SelectAttributes(data);
-			selectedAttributes = as.selectedAttributes();
-			Remove remove = new Remove();
-			remove.setAttributeIndicesArray(selectedAttributes);
-			remove.setInvertSelection(true);
-			remove.setInputFormat(data);
-			newData = Filter.useFilter(data, remove);
+			try {
+				as.SelectAttributes(data);
+				selectedAttributes = as.selectedAttributes();
+				Remove remove = new Remove();
+				remove.setAttributeIndicesArray(selectedAttributes);
+				remove.setInvertSelection(true);
+				remove.setInputFormat(data);
+				newData = Filter.useFilter(data, remove);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
 			writer.write(newData.toString());
@@ -46,7 +49,7 @@ public class AttributeSelectionClass{
 			System.out.println("Arff berria: " + args[1]);
 			String[] argumentuak = new String[2];
 			argumentuak[0] = args[0]; // trainBOW
-			argumentuak[1] = args[2]; // testBOW
+			argumentuak[1] = args[2]; // devBOW
 			System.out.println("Bateraggarria egiten");
 			new BateragarriakEgin();
 
