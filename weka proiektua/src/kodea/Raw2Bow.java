@@ -15,7 +15,7 @@ public class Raw2Bow {
 		try {
 			FileReader fi = new FileReader(args[0]);
 			Instances data = new Instances(fi);
-			Instances databow = bagOfWords(data, args[1]);
+			Instances databow = bagOfWords(data);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
 			writer.write(databow.toString());
 			writer.newLine();
@@ -27,11 +27,11 @@ public class Raw2Bow {
 		}
 	}
 
-	private static Instances bagOfWords(Instances data, String dictionary) {
+	private static Instances bagOfWords(Instances data) {
 
 		StringToWordVector filter = new StringToWordVector();
 
-		filter.setAttributeIndices("7");
+		filter.setAttributeIndices("6");
 		filter.setDoNotOperateOnPerClassBasis(false);
 		filter.setInvertSelection(false);
 		filter.setLowerCaseTokens(true);
