@@ -53,6 +53,16 @@ public class Raw2Bow {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		SparseToNonSparse nonsparse = new SparseToNonSparse();
+		Instances datanonsparse = null;
+		try {
+			nonsparse.setInputFormat(databow);
+			datanonsparse = Filter.useFilter(databow, nonsparse);
+			databow = datanonsparse;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		return databow;
 	}
