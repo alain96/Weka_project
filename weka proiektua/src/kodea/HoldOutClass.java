@@ -10,8 +10,25 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.instance.Randomize;
 import weka.filters.unsupervised.instance.RemovePercentage;
 
+/**
+ * Data bi zatitan banatzen du %70 train eta %30 test; eta arff berriak gordetzen ditu.
+ * 
+ * @author Alain B., Ander, Alain C., Andoni
+ * @version 26.03.2019
+ */
 public class HoldOutClass {
-	
+	/**
+	 * Metodo nagusia.
+	 * 
+	 * @param args
+	 *            : Konsolatik datozen komandoak.
+	 * @param args[0]
+	 *            : Data Arff-aren helbidea.
+	 * @param args[1]
+	 *            : Train Arff-a non gorde nahi den eta bere izena.
+	 * @param args[2]
+	 *            : Test Arff-a non gorde nahi den eta bere izena.
+	 */
 	public static void main(String[] args) throws Exception {
 		DataSource source = new DataSource(args[0]);
 		Instances data = source.getDataSet();

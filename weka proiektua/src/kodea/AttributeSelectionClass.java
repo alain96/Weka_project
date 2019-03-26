@@ -14,10 +14,28 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 
+/**
+ * Arff dokumentuak dituen erredundantzia gutxiko atributuak alde batera uzten
+ * ditu.
+ * 
+ * @author Alain B., Ander, Alain C., Andoni
+ * @version 26.03.2019
+ */
 public class AttributeSelectionClass{
-
 	public static int[] selectedAttributes;
 
+	/**
+	 * Metodo nagusia.
+	 * 
+	 * @param args
+	 *            : Konsolatik datozen komandoak.
+	 * @param args[0]
+	 *            : Train Arrf-aren helbidea.
+	 * @param args[1]
+	 *            : Arrf berria gordeko den helbidea.
+	 * @param args[2]
+	 *            : Dev Arrf-aren helbidea.
+	 */
 	public static void main(String[] args) {
 		try {
 			FileReader fi = new FileReader(args[0]); // BOW o TF_IDF

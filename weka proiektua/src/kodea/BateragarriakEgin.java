@@ -8,9 +8,25 @@ import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 
-
+/**
+ * Bi arff bateragarriak izan daitezen lortzeko programa.
+ * 
+ * @author Alain B., Ander, Alain C., Andoni
+ * @version 26.03.2019
+ */
 public class BateragarriakEgin {
-
+	/**
+	 * Metodo nagusia.
+	 * 
+	 * @param args
+	 *            : Konsolatik datozen komandoak.
+	 * @param args[0]
+	 *            : Arrf-aren helbidea.
+	 * @param args[1]
+	 *            : Arff-a non gorde nahi den.
+	 * @param selectedAttributes
+	 *            : Gorde nahi diren atributuen indizea
+	 */
 	public static void main(String[] args, int[] selectedAttributes) {
 		DataSource train;
 		try {

@@ -9,8 +9,23 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
-
+/**
+ * Arff-motako dokumentuak RAW egoeratik BOW formatuan gordetzeko.
+ * 
+ * @author Alain B., Ander, Alain C., Andoni
+ * @version 26.03.2019
+ */
 public class Raw2Bow {
+	/**
+	 * Metodo nagusia.
+	 * 
+	 * @param args
+	 *            : Konsolatik datozen komandoak.
+	 * @param args[0]
+	 *            : RAW Arff-aren helbidea.
+	 * @param args[1]
+	 *            : Arff-a non gorde nahi den eta bere izena.
+	 */
 	public static void main(String[] args) {
 		try {
 			FileReader fi = new FileReader(args[0]);
@@ -27,6 +42,14 @@ public class Raw2Bow {
 		}
 	}
 
+	/**
+	 * RAW motako dokumentuari, aukeratutako formatua ematen dio.
+	 * 
+	 * @param data
+	 *           : RAW motako Arff-tik kargatu ditugun instantziak.
+	 * @return databow
+	 * 			 : Arff-tik kargatu ditun instantziak, formatuarekin.
+	 */
 	private static Instances bagOfWords(Instances data) {
 
 		StringToWordVector filter = new StringToWordVector();
