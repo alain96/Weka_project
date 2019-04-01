@@ -10,7 +10,7 @@ public class KargatuModeloa {
 	
 	public static void main(String[] args) throws Exception {
 
-		Vector vModel = (Vector) SerializationHelper.read("Modeloa.model");
+		Vector vModel = (Vector) SerializationHelper.read(args[0]);
         Evaluation evalModel = (Evaluation) vModel.get(0);
         Classifier clsModel = (Classifier) vModel.get(1);
         
@@ -19,7 +19,7 @@ public class KargatuModeloa {
 			System.out.println(data.get(i).classValue());
 			double predictedClassIdx = evalModel.evaluateModelOnceAndRecordPrediction(clsModel, data.instance(i));
 			//double predictedClassIdx = clsModel.classifyInstance(dataDev.get(i));
-			double realClassIdx = data.instance(i).classValue();
+			
 	
 			String acierto;
 			int numErrors = 0;
