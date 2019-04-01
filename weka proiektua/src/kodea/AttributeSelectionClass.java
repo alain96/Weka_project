@@ -6,32 +6,51 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import weka.attributeSelection.AttributeSelection;
+import weka.attributeSelection.BestFirst;
+import weka.attributeSelection.CfsSubsetEval;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 
+/**
+ * Arff dokumentuak dituen erredundantzia gutxiko atributuak alde batera uzten
+ * ditu.
+ * 
+ * @author Alain B., Ander, Alain C., Andoni
+ * @version 26.03.2019
+ */
 public class AttributeSelectionClass{
-
 	public static int[] selectedAttributes;
 
+	/**
+	 * Metodo nagusia.
+	 * 
+	 * @param args
+	 *            : Konsolatik datozen komandoak.
+	 * @param args[0]
+	 *            : Train Arrf-aren helbidea.
+	 * @param args[1]
+	 *            : Arrf berria gordeko den helbidea.
+	 * @param args[2]
+	 *            : Dev Arrf-aren helbidea.
+	 */
 	public static void main(String[] args) {
 		try {
 			FileReader fi = new FileReader(args[0]); // BOW o TF_IDF
 			Instances data = new Instances(fi);
 			data.setClass(data.attribute("@@class@@"));
-			Ranker ranker = new Ranker();
-			InfoGainAttributeEval evaluator = new InfoGainAttributeEval();
-			AttributeSelection as = new AttributeSelection();
-			ranker.setThreshold(0.0);
-			ranker.setNumToSelect(1000);
-			as.setSearch(ranker);
-			as.setEvaluator(evaluator);
+			AttributeSelection filter = new AttributeSelection();
+			CfsSubsetEval eval = new CfsSubsetEval();
+			BestFirst search = new BestFirst();
+			filter.setSearch(search);
+			filter.setEvaluator(eval);
+			
 			Instances newData = null;
 			try {
-				as.SelectAttributes(data);
-				selectedAttributes = as.selectedAttributes();
+				filter.SelectAttributes(data);
+				selectedAttributes = filter.selectedAttributes();
 				Remove remove = new Remove();
 				remove.setAttributeIndicesArray(selectedAttributes);
 				remove.setInvertSelection(true);
@@ -56,10 +75,10 @@ public class AttributeSelectionClass{
 			try {
 				BateragarriakEgin.main(argumentuak, selectedAttributes);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

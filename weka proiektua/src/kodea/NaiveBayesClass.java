@@ -13,6 +13,8 @@ public class NaiveBayesClass {
 		}
 		
 		NaiveBayes cls = new NaiveBayes();
+		cls.buildClassifier(data);
 		
+		weka.core.SerializationHelper.write(args[1], cls);
 	}
 }
