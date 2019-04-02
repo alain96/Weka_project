@@ -1,14 +1,14 @@
 package kodea;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Vector;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.functions.Logistic;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
-import weka.core.converters.ConverterUtils.DataSource;
 
 public class NaiveBayesModeloaEraiki {
 	public static void main(String[] args) {
@@ -19,7 +19,6 @@ public class NaiveBayesModeloaEraiki {
 		Instances train;
 		Instances test;
 		NaiveBayes naiveBayes;
-		int maxIts=1;
 		try {
 			fi = new FileReader(args[0]);
 			train = new Instances(fi);
@@ -41,6 +40,14 @@ public class NaiveBayesModeloaEraiki {
 			v.add(eval);
 	        v.add(naiveBayes);
 	        SerializationHelper.write(args[2], v);
+	        
+	     	//Fitxategia sortu eta idatzi
+			File f = new File(args[3]);
+			FileWriter w = new FileWriter(f);
+			w.write(eval.toSummaryString("\nResults\n======\n", false));
+			w.write(eval.toClassDetailsString());
+			w.write(eval.toMatrixString());
+			w.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

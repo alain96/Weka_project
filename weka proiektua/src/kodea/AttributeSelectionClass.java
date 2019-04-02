@@ -8,8 +8,6 @@ import java.io.FileWriter;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
-import weka.attributeSelection.InfoGainAttributeEval;
-import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;

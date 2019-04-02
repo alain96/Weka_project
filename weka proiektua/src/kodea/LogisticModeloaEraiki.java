@@ -1,13 +1,11 @@
 package kodea;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
-import java.util.Random;
+import java.io.FileWriter;
 import java.util.Vector;
 
-import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
-import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.Logistic;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
@@ -62,11 +60,18 @@ public class LogisticModeloaEraiki {
 			v.add(bestEval);
 	        v.add(bestLogistic);
 	        SerializationHelper.write(args[2], v);
+	        
+	        //Fitxategia sortu eta idatzi
+			File f = new File(args[3]);
+			FileWriter w = new FileWriter(f);
+			w.write(bestEval.toSummaryString("\nResults\n======\n", false));
+			w.write(bestEval.toClassDetailsString());
+			w.write(bestEval.toMatrixString());
+			w.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	
 	}
 
