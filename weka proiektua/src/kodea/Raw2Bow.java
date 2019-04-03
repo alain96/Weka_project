@@ -76,7 +76,7 @@ public class Raw2Bow {
 			System.out.println(e.getMessage());
 		}
 		
-		SparseToNonSparse nonsparse = new SparseToNonSparse();
+		/*SparseToNonSparse nonsparse = new SparseToNonSparse();
 		Instances datanonsparse = null;
 		try {
 			nonsparse.setInputFormat(databow);
@@ -84,7 +84,7 @@ public class Raw2Bow {
 			databow = datanonsparse;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
 
 		return databow;
 	}
