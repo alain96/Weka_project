@@ -8,8 +8,11 @@ import java.io.FileWriter;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
+import weka.attributeSelection.CorrelationAttributeEval;
+import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.FixedDictionaryStringToWordVector;
 import weka.filters.unsupervised.attribute.Remove;
 
 /**
@@ -26,13 +29,13 @@ public class AttributeSelectionClass{
 	 * Metodo nagusia.
 	 * 
 	 * @param args
-	 *            : Konsolatik datozen komandoak.
+	 *            : Kontsolatik datozen komandoak.
 	 * @param args[0]
-	 *            : Train Arrf-aren helbidea.
+	 *            : Train Arff-aren helbidea.
 	 * @param args[1]
-	 *            : Arrf berria gordeko den helbidea.
+	 *            : Arff berria gordeko den helbidea.
 	 * @param args[2]
-	 *            : Dev Arrf-aren helbidea.
+	 *            : Dev Arff-aren helbidea.
 	 */
 	public static void main(String[] args) {
 		try {
@@ -42,6 +45,9 @@ public class AttributeSelectionClass{
 			AttributeSelection filter = new AttributeSelection();
 			CfsSubsetEval eval = new CfsSubsetEval();
 			BestFirst search = new BestFirst();
+//			CorrelationAttributeEval eval = new CorrelationAttributeEval();
+//			Ranker search = new Ranker();
+//			search.setNumToSelect(1000);
 			filter.setSearch(search);
 			filter.setEvaluator(eval);
 			
@@ -64,10 +70,12 @@ public class AttributeSelectionClass{
 			writer.flush();
 			writer.close();
 			System.out.println("Arff berria: " + args[1]);
-			String[] argumentuak = new String[2];
+			
+			String[] argumentuak = new String[3];
 			argumentuak[0] = args[0]; // trainBOW
 			argumentuak[1] = args[2]; // devBOW
-			System.out.println("Bateraggarria egiten");
+			argumentuak[2] = args[3];
+			System.out.println("Bateragarria egiten");
 			new BateragarriakEgin();
 
 			try {

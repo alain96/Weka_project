@@ -19,9 +19,9 @@ public class BateragarriakEgin {
 	 * Metodo nagusia.
 	 * 
 	 * @param args
-	 *            : Konsolatik datozen komandoak.
+	 *            : Kontsolatik datozen komandoak.
 	 * @param args[0]
-	 *            : Arrf-aren helbidea.
+	 *            : Arff-aren helbidea.
 	 * @param args[1]
 	 *            : Arff-a non gorde nahi den.
 	 * @param selectedAttributes
@@ -43,7 +43,7 @@ public class BateragarriakEgin {
 			remove.setInvertSelection(true);
 			remove.setInputFormat(dataTrain);
 			dataDev = Filter.useFilter(dataDev, remove);
-			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1] + "Bateragarria.arff"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(args[2]));
 			writer.write(dataDev.toString());
 			writer.newLine();
 			writer.flush();
