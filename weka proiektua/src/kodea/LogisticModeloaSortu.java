@@ -71,12 +71,13 @@ public class LogisticModeloaSortu {
         for(int i=1;i<=100;i=i+10) {
         	
       	    Logistic logistic = new Logistic();
+      	    logistic.buildClassifier(dataTrain);
       	    logistic.setMaxIts(i);
-	        logistic.buildClassifier(dataTrain);
 			eval = new Evaluation(dataTrain); //beti egin behar da ebaluazio berri bat
-			//eval.evaluateModel(logistic, dataTest);
-			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
+			eval.evaluateModel(logistic, dataTest);
+			//eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
 			correct = eval.correct();
+			System.out.println(i);
 		    System.out.println("Ondo iragarritako instantzia kopurua: " + correct);
 	        if (correct > correctOpt) {
 		        correctOpt=correct;
