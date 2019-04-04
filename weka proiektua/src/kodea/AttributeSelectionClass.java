@@ -75,7 +75,7 @@ public class AttributeSelectionClass{
 			argumentuak[0] = args[0]; // trainBOW
 			argumentuak[1] = args[2]; // devBOW
 			argumentuak[2] = args[3];
-			System.out.println("Bateragarria egiten");
+			//System.out.println("Bateragarria egiten");
 			new BateragarriakEgin();
 
 			try {
