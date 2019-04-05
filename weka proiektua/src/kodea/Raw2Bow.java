@@ -66,26 +66,32 @@ public class Raw2Bow {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		filter.setTFTransform(true);
-		filter.setIDFTransform(true);
+		filter.setTFTransform(false);
+		filter.setIDFTransform(false);
 
 		Instances databow = null;
+		Instances dataFiltered = null;
 		try {
 			databow = Filter.useFilter(data, filter);
+			SparseToNonSparse nonsparse = new SparseToNonSparse();
+			nonsparse.setInputFormat(databow);
+			dataFiltered = Filter.useFilter(databow, filter);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		/*SparseToNonSparse nonsparse = new SparseToNonSparse();
-		Instances datanonsparse = null;
-		try {
-			nonsparse.setInputFormat(databow);
-			datanonsparse = Filter.useFilter(databow, nonsparse);
-			databow = datanonsparse;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}*/
+//		SparseToNonSparse nonsparse = new SparseToNonSparse();
+//		Instances datanonsparse = null;
+//		try {
+//			nonsparse.setInputFormat(databow);
+//			datanonsparse = Filter.useFilter(databow, nonsparse);
+//			databow = datanonsparse;
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+		
 
-		return databow;
+		//return databow;
+		return dataFiltered;
 	}
 }

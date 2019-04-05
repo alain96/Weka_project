@@ -24,41 +24,41 @@ public class LogisticModeloaSortu {
 			dataTest.setClassIndex(dataTest.numAttributes() - 1);
 		}
 		
-//		HashMap<Integer, Integer> minimoak = new HashMap<Integer,Integer>();
-//		int klasearenBalioa = 0;
-//		for (int i = 0; i < dataTrain.numInstances()-1; i++) {
-//    		klasearenBalioa = (int) dataTrain.instance(i).classValue();
-//    		if (minimoak.containsKey(klasearenBalioa)) {
-//    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
-//    			System.out.println("he añadido +1");
-//    		}else {
-//    			minimoak.put(klasearenBalioa, 1);
-//    			System.out.println("he añadido");
-//    		}
-//		}
-//		klasearenBalioa = 0;
-//		for (int i = 0; i < dataTest.numInstances()-1; i++) {
-//    		klasearenBalioa = (int) dataTest.instance(i).classValue();
-//    		if (minimoak.containsKey(klasearenBalioa)) {
-//    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
-//    			System.out.println("he añadido +1");
-//    		}else {
-//    			minimoak.put(klasearenBalioa, 1);
-//    			System.out.println("he añadido");
-//    		}
-//		}
-//		
-//		int minBalio=9999999;
-//        double minKey=0D;
-//        int klaseKopurua = minimoak.size();
-//        System.out.println("KLASE KOPURUA: "+klaseKopurua);
-//        for (int key = 0; key < klaseKopurua; key++) {
-//        		if (minBalio>minimoak.get(key)) {	
-//        			minBalio		=	minimoak.get(key);
-//        			minKey 			=	key;
-//        		}
-//		}
-//        System.out.println("MINKEY : "+minKey);
+		HashMap<Integer, Integer> minimoak = new HashMap<Integer,Integer>();
+		int klasearenBalioa = 0;
+		for (int i = 0; i < dataTrain.numInstances()-1; i++) {
+    		klasearenBalioa = (int) dataTrain.instance(i).classValue();
+    		if (minimoak.containsKey(klasearenBalioa)) {
+    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
+    			System.out.println(klasearenBalioa + " klasearen agerpen berria.");
+    		}else {
+    			minimoak.put(klasearenBalioa, 1);
+    			System.out.println(klasearenBalioa + " klasea gehitu egin da.");
+    		}
+		}
+		klasearenBalioa = 0;
+		for (int i = 0; i < dataTest.numInstances()-1; i++) {
+    		klasearenBalioa = (int) dataTest.instance(i).classValue();
+    		if (minimoak.containsKey(klasearenBalioa)) {
+    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
+    			System.out.println(klasearenBalioa + " klasearen agerpen berria.");
+			}else {
+				minimoak.put(klasearenBalioa, 1);
+				System.out.println(klasearenBalioa + " klasea gehitu egin da.");
+			}
+		}
+		
+		int minBalio=9999999;
+        double minKey=0D;
+        int klaseKopurua = minimoak.size();
+        System.out.println("KLASE KOPURUA: "+klaseKopurua);
+        for (int key = 0; key < klaseKopurua; key++) {
+        		if (minBalio>minimoak.get(key)) {	
+        			minBalio		=	minimoak.get(key);
+        			minKey 			=	key;
+        		}
+		}
+        System.out.println("MINKEY : "+minKey);
 		
 		System.out.println(dataTrain.numInstances());
 		System.out.println(dataTest.numInstances());
@@ -67,27 +67,35 @@ public class LogisticModeloaSortu {
 		double 	correctOpt 	= -1D;
         double 	correct 	= -1D;
 		Evaluation eval = new Evaluation(dataTrain);
+		double measure = 0.0;
+		double measureOpt = 0.0;
+		double recall = 0.0;
+		double recallOpt = 0.0;
         
         for(int i=1;i<=100;i=i+10) {
-        	
+        	System.out.println( i + " balioarekin modeloa sortzen...");
       	    Logistic logistic = new Logistic();
       	    logistic.buildClassifier(dataTrain);
       	    logistic.setMaxIts(i);
 			eval = new Evaluation(dataTrain); //beti egin behar da ebaluazio berri bat
 			eval.evaluateModel(logistic, dataTest);
-			//eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
-			correct = eval.correct();
+//			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
+//			correct = eval.correct();
+//			measure = eval.fMeasure((int) minKey);
+			recall = eval.recall((int) minKey);
 			System.out.println(i);
 		    System.out.println("Ondo iragarritako instantzia kopurua: " + correct);
-	        if (correct > correctOpt) {
-		        correctOpt=correct;
+		    System.out.println("f-Measure optimoa: " + recall);
+	        if (recall > recallOpt) {
+//		        measureOpt=measure;
+		        recallOpt = recall;
 			    maxIts=i;
 	        }
         }
         
         System.out.println("");
 		System.out.println("MaxIts Optimoa: " + maxIts);
-		System.out.println("Correct hoberena: " + correctOpt);
+		System.out.println("f-Measure hoberena: " + measureOpt);
     	
     	Logistic logistic = new Logistic();
         logistic.buildClassifier(dataTest);
