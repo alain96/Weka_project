@@ -27,18 +27,18 @@ public class LogisticModeloaSortu {
 		}
 		
 		HashMap<Integer, Integer> minimoak = new HashMap<Integer,Integer>();
-//		int klasearenBalioa = 0;
-//		for (int i = 0; i < dataTrain.numInstances()-1; i++) {
-//    		klasearenBalioa = (int) dataTrain.instance(i).classValue();
-//    		if (minimoak.containsKey(klasearenBalioa)) {
-//    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
-//    			System.out.println(klasearenBalioa + " klasearen agerpen berria.");
-//    		}else {
-//    			minimoak.put(klasearenBalioa, 1);
-//    			System.out.println(klasearenBalioa + " klasea gehitu egin da.");
-//    		}
-//		}
 		int klasearenBalioa = 0;
+		for (int i = 0; i < dataTrain.numInstances()-1; i++) {
+    		klasearenBalioa = (int) dataTrain.instance(i).classValue();
+    		if (minimoak.containsKey(klasearenBalioa)) {
+    			minimoak.put(klasearenBalioa, minimoak.get(klasearenBalioa)+1);
+    			System.out.println(klasearenBalioa + " klasearen agerpen berria.");
+    		}else {
+    			minimoak.put(klasearenBalioa, 1);
+    			System.out.println(klasearenBalioa + " klasea gehitu egin da.");
+    		}
+		}
+		klasearenBalioa = 0;
 		for (int i = 0; i < dataTest.numInstances()-1; i++) {
     		klasearenBalioa = (int) dataTest.instance(i).classValue();
     		if (minimoak.containsKey(klasearenBalioa)) {
@@ -81,8 +81,8 @@ public class LogisticModeloaSortu {
 		double recall = 0.0;
 		double recallOpt = -1.0;
         maxIts = 15;
-        for (int i=dataTrain.numInstances()/10; i<= dataTrain.numInstances(); i+=dataTrain.numInstances()/10) {
-        //for(int i=1;i<=100;i=i+10) {
+//        for (int i=dataTrain.numInstances()/10; i<= dataTrain.numInstances(); i+=dataTrain.numInstances()/10) {
+        for(int i=1;i<=100;i=i+10) {
         	System.out.println( i + " balioarekin modeloa sortzen...");
       	    Logistic logistic = new Logistic();
       	    logistic.buildClassifier(dataTrain);
@@ -93,8 +93,8 @@ public class LogisticModeloaSortu {
       	    //logistic.setMaxIts(i);
       	    
 			eval = new Evaluation(dataTrain); //beti egin behar da ebaluazio berri bat
-			eval.evaluateModel(logistic, dataTest);
-//			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
+//			eval.evaluateModel(logistic, dataTest);
+			eval.crossValidateModel(logistic, dataTrain, 10, new Random(1));
 //			correct = eval.correct();
 //			measure = eval.fMeasure((int) minKey);
 			recall = eval.recall((int) minKey);
@@ -106,12 +106,12 @@ public class LogisticModeloaSortu {
 		        recallOpt = recall;
 			    maxIts=i;
 	        }
-	        System.out.println("f-Measure optimoa: " + recallOpt);
+	        System.out.println("Recall optimoa: " + recallOpt);
         }
         
         System.out.println("");
 		System.out.println("MaxIts Optimoa: " + maxIts);
-		System.out.println("f-Measure hoberena: " + recallOpt);
+		System.out.println("Recall hoberena: " + recallOpt);
     	
     	Logistic logistic = new Logistic();
         logistic.buildClassifier(dataTrain);

@@ -30,6 +30,9 @@ public class Raw2Bow {
 		try {
 			FileReader fi = new FileReader(args[0]);
 			Instances data = new Instances(fi);
+			if(data.classIndex() == -1) {
+				data.setClassIndex(data.numAttributes()-1);
+			}
 			Instances databow = bagOfWords(data);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
 			writer.write(databow.toString());
@@ -52,43 +55,49 @@ public class Raw2Bow {
 	 */
 	private static Instances bagOfWords(Instances data) {
 
-		StringToWordVector filter = new StringToWordVector();
-
-		filter.setAttributeIndices("6");
-		filter.setDoNotOperateOnPerClassBasis(false);
-		filter.setInvertSelection(false);
-		filter.setLowerCaseTokens(true);
-		filter.setMinTermFreq(1);
-		filter.setOutputWordCounts(true);
-		filter.setPeriodicPruning(-1.0);
-		filter.setWordsToKeep(Integer.MAX_VALUE);
+		Instances databow = null;
+		Instances dataFiltered = null;
+		
 		try {
+			StringToWordVector filter = new StringToWordVector();
+
+			filter.setAttributeIndices("6");
+			filter.setDoNotOperateOnPerClassBasis(false);
+			filter.setInvertSelection(false);
+			filter.setLowerCaseTokens(true);
+			filter.setMinTermFreq(1);
+			filter.setOutputWordCounts(true);
+			filter.setPeriodicPruning(-1.0);
+			filter.setWordsToKeep(Integer.MAX_VALUE);
 			filter.setInputFormat(data);
+			filter.setTFTransform(false);
+			filter.setIDFTransform(false);
+			
+			databow = Filter.useFilter(data, filter);
+			
+			SparseToNonSparse nonsparse = new SparseToNonSparse();
+			nonsparse.setInputFormat(databow);
+			dataFiltered = Filter.useFilter(databow, nonsparse);
+			
+//			NonSparseToSparse sparse = new NonSparseToSparse();
+//			sparse.setInputFormat(databow);
+//			dataFiltered = Filter.useFilter(databow, sparse);
+			
+			dataFiltered = databow;
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		filter.setTFTransform(false);
-		filter.setIDFTransform(false);
-
-		Instances databow = null;
-		Instances dataFiltered = null;
+		
+		return dataFiltered;
 //		try {
-//			databow = Filter.useFilter(data, filter);
-//			SparseToNonSparse nonsparse = new SparseToNonSparse();
-//			nonsparse.setInputFormat(databow);
-//			dataFiltered = Filter.useFilter(databow, filter);
+////			databow = Filter.useFilter(data, filter);
+////			NonSparseToSparse sparse = new NonSparseToSparse();
+////			sparse.setInputFormat(databow);
+////			dataFiltered = Filter.useFilter(databow, filter);
 //		} catch (Exception e) {
 //			System.out.println(e.getMessage());
 //		}
-		try {
-			databow = Filter.useFilter(data, filter);
-//			NonSparseToSparse sparse = new NonSparseToSparse();
-//			sparse.setInputFormat(databow);
-//			dataFiltered = Filter.useFilter(databow, filter);
-			dataFiltered = databow;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 		
 //		SparseToNonSparse nonsparse = new SparseToNonSparse();
 //		Instances datanonsparse = null;
@@ -101,7 +110,7 @@ public class Raw2Bow {
 //		}
 		
 
-		//return databow;
-		return dataFiltered;
+//		return databow;
+		
 	}
 }
