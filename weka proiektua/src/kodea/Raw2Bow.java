@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.unsupervised.instance.NonSparseToSparse;
 import weka.filters.unsupervised.instance.SparseToNonSparse;
 
 /**
@@ -71,11 +72,20 @@ public class Raw2Bow {
 
 		Instances databow = null;
 		Instances dataFiltered = null;
+//		try {
+//			databow = Filter.useFilter(data, filter);
+//			SparseToNonSparse nonsparse = new SparseToNonSparse();
+//			nonsparse.setInputFormat(databow);
+//			dataFiltered = Filter.useFilter(databow, filter);
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 		try {
 			databow = Filter.useFilter(data, filter);
-			SparseToNonSparse nonsparse = new SparseToNonSparse();
-			nonsparse.setInputFormat(databow);
-			dataFiltered = Filter.useFilter(databow, filter);
+//			NonSparseToSparse sparse = new NonSparseToSparse();
+//			sparse.setInputFormat(databow);
+//			dataFiltered = Filter.useFilter(databow, filter);
+			dataFiltered = databow;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

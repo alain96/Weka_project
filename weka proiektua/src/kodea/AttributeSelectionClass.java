@@ -43,11 +43,11 @@ public class AttributeSelectionClass{
 			Instances data = new Instances(fi);
 			data.setClass(data.attribute("@@class@@"));
 			AttributeSelection filter = new AttributeSelection();
-//			CfsSubsetEval eval = new CfsSubsetEval();
-//			BestFirst search = new BestFirst();
-			CorrelationAttributeEval eval = new CorrelationAttributeEval();
-			Ranker search = new Ranker();
-			search.setNumToSelect(1500);
+			CfsSubsetEval eval = new CfsSubsetEval();
+			BestFirst search = new BestFirst();
+//			CorrelationAttributeEval eval = new CorrelationAttributeEval();
+//			Ranker search = new Ranker();
+//			search.setNumToSelect(1500);
 			filter.setSearch(search);
 			filter.setEvaluator(eval);
 			
