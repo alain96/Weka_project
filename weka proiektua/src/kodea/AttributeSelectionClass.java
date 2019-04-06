@@ -48,7 +48,7 @@ public class AttributeSelectionClass{
 //			BestFirst search = new BestFirst();
 			InfoGainAttributeEval eval = new InfoGainAttributeEval();
 			Ranker search = new Ranker();
-			search.setNumToSelect(1500);
+			search.setNumToSelect(data.numAttributes()-2);
 			filter.setSearch(search);
 			filter.setEvaluator(eval);
 			
@@ -77,13 +77,13 @@ public class AttributeSelectionClass{
 			argumentuak[1] = args[2]; // devBOW
 			argumentuak[2] = args[3];
 			//System.out.println("Bateragarria egiten");
-			new BateragarriakEgin();
-
-			try {
-				BateragarriakEgin.main(argumentuak, selectedAttributes);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			new BateragarriakEgin();
+//
+//			try {
+//				BateragarriakEgin.main(argumentuak, selectedAttributes);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

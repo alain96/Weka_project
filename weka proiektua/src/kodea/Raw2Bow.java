@@ -71,28 +71,27 @@ public class Raw2Bow {
 			filter.setOutputWordCounts(true);
 			filter.setPeriodicPruning(-1.0);
 			filter.setWordsToKeep(Integer.MAX_VALUE);
-			filter.setTFTransform(true);
-			filter.setIDFTransform(true);
+			filter.setTFTransform(false);
+			filter.setIDFTransform(false);
 			filter.setInputFormat(data);
 			
 			dataBow = Filter.useFilter(data, filter);
 			
 			dataBow.setClass(dataBow.attribute("@@class@@"));
-			dataBow.setClassIndex(dataBow.numAttributes()-1);
 			
-////			SparseToNonSparse nonsparse = new SparseToNonSparse();
-////			nonsparse.setInputFormat(databow);
-////			newData = Filter.useFilter(databow, nonsparse);
+//			SparseToNonSparse nonsparse = new SparseToNonSparse();
+//			nonsparse.setInputFormat(dataBow);
+//			newData = Filter.useFilter(dataBow, nonsparse);
 //			
-//			NonSparseToSparse sparse = new NonSparseToSparse();
-//			sparse.setInputFormat(dataBow);
-//			newData = Filter.useFilter(dataBow, sparse);
+			NonSparseToSparse sparse = new NonSparseToSparse();
+			sparse.setInputFormat(dataBow);
+			newData = Filter.useFilter(dataBow, sparse);
 //			
 //			newData.setClass(newData.attribute("@@class@@"));
-////			if(newData.classIndex() == -1) {
-////				newData.setClassIndex(5);
-////			}
-			dataFiltered = dataBow;
+//			if(newData.classIndex() == -1) {
+//				newData.setClassIndex(5);
+//			}
+			dataFiltered = newData;
 			
 			
 		} catch (Exception e) {

@@ -93,8 +93,8 @@ public class LogisticModeloaSortu {
       	    //logistic.setMaxIts(i);
       	    
 			eval = new Evaluation(dataTrain); //beti egin behar da ebaluazio berri bat
-//			eval.evaluateModel(logistic, dataTest);
-			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
+			eval.evaluateModel(logistic, dataTest);
+//			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
 //			correct = eval.correct();
 //			measure = eval.fMeasure((int) minKey);
 			recall = eval.recall((int) minKey);
