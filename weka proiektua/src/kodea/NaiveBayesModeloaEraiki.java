@@ -21,7 +21,7 @@ public class NaiveBayesModeloaEraiki {
 		Instances test;
 		NaiveBayes naiveBayes;
 		try {
-			fi = new FileReader(args[0]);
+			fi = new FileReader(args[0]); 
 			train = new Instances(fi);
 			train.setClass(train.attribute("@@class@@"));
 			
