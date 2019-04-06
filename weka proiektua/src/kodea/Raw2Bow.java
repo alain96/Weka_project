@@ -53,10 +53,12 @@ public class Raw2Bow {
 	 * @return databow
 	 * 			 : Arff-tik kargatu ditun instantziak, formatuarekin.
 	 */
+	@SuppressWarnings("null")
 	private static Instances bagOfWords(Instances data) {
 
-		Instances databow = null;
+		Instances dataBow = null;
 		Instances dataFiltered = null;
+		Instances newData = null;
 		
 		try {
 			StringToWordVector filter = new StringToWordVector();
@@ -69,21 +71,29 @@ public class Raw2Bow {
 			filter.setOutputWordCounts(true);
 			filter.setPeriodicPruning(-1.0);
 			filter.setWordsToKeep(Integer.MAX_VALUE);
+			filter.setTFTransform(true);
+			filter.setIDFTransform(true);
 			filter.setInputFormat(data);
-			filter.setTFTransform(false);
-			filter.setIDFTransform(false);
 			
-			databow = Filter.useFilter(data, filter);
+			dataBow = Filter.useFilter(data, filter);
 			
-			SparseToNonSparse nonsparse = new SparseToNonSparse();
-			nonsparse.setInputFormat(databow);
-			dataFiltered = Filter.useFilter(databow, nonsparse);
+			dataBow.setClass(dataBow.attribute("@@class@@"));
+			dataBow.setClassIndex(dataBow.numAttributes()-1);
 			
+////			SparseToNonSparse nonsparse = new SparseToNonSparse();
+////			nonsparse.setInputFormat(databow);
+////			newData = Filter.useFilter(databow, nonsparse);
+//			
 //			NonSparseToSparse sparse = new NonSparseToSparse();
-//			sparse.setInputFormat(databow);
-//			dataFiltered = Filter.useFilter(databow, sparse);
+//			sparse.setInputFormat(dataBow);
+//			newData = Filter.useFilter(dataBow, sparse);
+//			
+//			newData.setClass(newData.attribute("@@class@@"));
+////			if(newData.classIndex() == -1) {
+////				newData.setClassIndex(5);
+////			}
+			dataFiltered = dataBow;
 			
-			dataFiltered = databow;
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

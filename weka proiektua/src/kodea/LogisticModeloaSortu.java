@@ -94,7 +94,7 @@ public class LogisticModeloaSortu {
       	    
 			eval = new Evaluation(dataTrain); //beti egin behar da ebaluazio berri bat
 //			eval.evaluateModel(logistic, dataTest);
-			eval.crossValidateModel(logistic, dataTrain, 10, new Random(1));
+			eval.crossValidateModel(logistic, dataTest, 10, new Random(1));
 //			correct = eval.correct();
 //			measure = eval.fMeasure((int) minKey);
 			recall = eval.recall((int) minKey);

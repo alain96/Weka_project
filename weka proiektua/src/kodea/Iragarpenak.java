@@ -19,9 +19,12 @@ public class Iragarpenak {
 		String testua = " ";
 
 		// Deserialize model (load model)
-		Vector vModel = (Vector) SerializationHelper.read(args[0]);
+		Vector vModel = (Vector) SerializationHelper.read("C:\\Users\\Andoni\\Desktop\\ProiektuaWeka\\PruebaModeloa.model");
         Evaluation evalModel = (Evaluation) vModel.get(0);
         Classifier clsModel = (Classifier) vModel.get(1);
+        
+        System.out.println(evalModel);
+        System.out.println(clsModel);
 		
 		// load unlabeled data
 		Instances unlabeled = new Instances(new BufferedReader(new FileReader(args[1])));

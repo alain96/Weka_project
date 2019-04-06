@@ -9,6 +9,7 @@ import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.attributeSelection.CorrelationAttributeEval;
+import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -43,11 +44,11 @@ public class AttributeSelectionClass{
 			Instances data = new Instances(fi);
 			data.setClass(data.attribute("@@class@@"));
 			AttributeSelection filter = new AttributeSelection();
-			CfsSubsetEval eval = new CfsSubsetEval();
-			BestFirst search = new BestFirst();
-//			CorrelationAttributeEval eval = new CorrelationAttributeEval();
-//			Ranker search = new Ranker();
-//			search.setNumToSelect(1500);
+//			CfsSubsetEval eval = new CfsSubsetEval();
+//			BestFirst search = new BestFirst();
+			InfoGainAttributeEval eval = new InfoGainAttributeEval();
+			Ranker search = new Ranker();
+			search.setNumToSelect(1500);
 			filter.setSearch(search);
 			filter.setEvaluator(eval);
 			
