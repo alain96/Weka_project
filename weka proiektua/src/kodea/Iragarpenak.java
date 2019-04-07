@@ -19,7 +19,7 @@ public class Iragarpenak {
 		String testua = " ";
 
 		// Deserialize model (load model)
-		Vector vModel = (Vector) SerializationHelper.read("C:\\Users\\Andoni\\Desktop\\ProiektuaWeka\\PruebaModeloa.model");
+		Vector vModel = (Vector) SerializationHelper.read(args[0]);
         Evaluation evalModel = (Evaluation) vModel.get(0);
         Classifier clsModel = (Classifier) vModel.get(1);
         
