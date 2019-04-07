@@ -44,8 +44,6 @@ public class AttributeSelectionClass{
 			Instances data = new Instances(fi);
 			data.setClass(data.attribute("@@class@@"));
 			AttributeSelection filter = new AttributeSelection();
-//			CfsSubsetEval eval = new CfsSubsetEval();
-//			BestFirst search = new BestFirst();
 			InfoGainAttributeEval eval = new InfoGainAttributeEval();
 			Ranker search = new Ranker();
 			search.setNumToSelect(data.numAttributes()-2);
@@ -55,14 +53,16 @@ public class AttributeSelectionClass{
 			Instances newData = null;
 			try {
 				filter.SelectAttributes(data);
+				
 				selectedAttributes = filter.selectedAttributes();
+				
 				Remove remove = new Remove();
 				remove.setAttributeIndicesArray(selectedAttributes);
 				remove.setInvertSelection(true);
 				remove.setInputFormat(data);
 				newData = Filter.useFilter(data, remove);
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 
 			BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
@@ -73,19 +73,21 @@ public class AttributeSelectionClass{
 			System.out.println("Arff berria: " + args[1]);
 			
 			String[] argumentuak = new String[3];
-			argumentuak[0] = args[0]; // trainBOW
-			argumentuak[1] = args[2]; // devBOW
-			argumentuak[2] = args[3];
-			//System.out.println("Bateragarria egiten");
-//			new BateragarriakEgin();
-//
-//			try {
-//				BateragarriakEgin.main(argumentuak, selectedAttributes);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
+			//argumentuak[0] = args[0]; // trainBOW
+			//argumentuak[1] = args[2]; // devBOW
+			//argumentuak[2] = args[3];
+			System.out.println("Bateragarria egiten");
+			new BateragarriakEgin();
+			argumentuak[0]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFWithAS.arff";
+			argumentuak[1]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTest.arff";
+			argumentuak[2]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTestWithAS.arff";
+			try {
+				BateragarriakEgin.main(argumentuak, selectedAttributes);
+			} catch (Exception e) {
+				//e.printStackTrace();
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

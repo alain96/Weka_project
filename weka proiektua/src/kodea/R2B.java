@@ -34,7 +34,11 @@ public class R2B {
 			}
 			Instances databow = null;
 			String izena = "";
-			for(int i=1; i <= 3; i++) {
+			System.out.println("FOR-ean sartzen");
+			BufferedWriter writer = null;
+			for(int i=1; i <=3; i=i+1) {
+				
+				System.out.println("iren balioa : "+i);
 				databow = bagOfWords(data,i);
 				
 				if(i==1) {
@@ -46,15 +50,18 @@ public class R2B {
 				else {
 					izena = args[1]+"NonSparse.arff";
 				}
-				BufferedWriter writer = new BufferedWriter(new FileWriter(izena));
+				System.out.println("i num instances : "+databow.numInstances());
+				System.out.println("i num attribute : "+databow.numAttributes());
+				writer = new BufferedWriter(new FileWriter(izena));
 				writer.write(databow.toString());
 				writer.newLine();
 				writer.flush();
 				writer.close();
 				System.out.println("Arff berria: " + izena);
 			}
-			
+			System.out.println("me he salido del for");
 		} catch (Exception e) {
+			System.out.println("ERROR FOR");
 			System.out.println(e.getMessage());
 		}
 	}
@@ -69,7 +76,7 @@ public class R2B {
 	 */
 	@SuppressWarnings("null")
 	private static Instances bagOfWords(Instances data, int i) {
-
+		System.out.println("BoW egiten : "+i);
 		Instances emaitza = null;
 		
 		try {
@@ -97,7 +104,7 @@ public class R2B {
 			filter.setInputFormat(data);
 			
 			emaitza = Filter.useFilter(data, filter);
-			
+			System.out.println("filtroa aplikatuta");
 			if(i == 2) {
 				SparseToNonSparse sparse = new SparseToNonSparse();
 				sparse.setInputFormat(emaitza);
@@ -106,6 +113,7 @@ public class R2B {
 			}
 			
 		} catch (Exception e) {
+			System.out.println("ERROR");
 			System.out.println(e.getMessage());
 		}
 		
