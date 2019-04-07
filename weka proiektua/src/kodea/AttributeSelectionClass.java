@@ -73,14 +73,14 @@ public class AttributeSelectionClass{
 			System.out.println("Arff berria: " + args[1]);
 			
 			String[] argumentuak = new String[3];
-			//argumentuak[0] = args[0]; // trainBOW
-			//argumentuak[1] = args[2]; // devBOW
-			//argumentuak[2] = args[3];
+			argumentuak[0] = args[1]; // trainBOW
+			argumentuak[1] = args[2]; // devBOW
+			argumentuak[2] = args[3];
 			System.out.println("Bateragarria egiten");
 			new BateragarriakEgin();
-			argumentuak[0]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFWithAS.arff";
-			argumentuak[1]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTest.arff";
-			argumentuak[2]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTestWithAS.arff";
+//			argumentuak[0]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFWithAS.arff";
+//			argumentuak[1]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTest.arff";
+//			argumentuak[2]="/Users/ander/Desktop/Proiektua_datuak/dataAdultTFIDFTestWithAS.arff";
 			try {
 				BateragarriakEgin.main(argumentuak, selectedAttributes);
 			} catch (Exception e) {
