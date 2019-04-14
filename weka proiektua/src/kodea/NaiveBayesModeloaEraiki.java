@@ -35,8 +35,8 @@ public class NaiveBayesModeloaEraiki {
 			naiveBayes = new NaiveBayes();
 			naiveBayes.buildClassifier(train);
 			eval = new Evaluation(train);
-		    eval.evaluateModel(naiveBayes, test);
-//		    eval.crossValidateModel(naiveBayes, train, 10, new Random(1));
+		    eval.evaluateModel(naiveBayes, train);
+		    //eval.crossValidateModel(naiveBayes, train, 10, new Random(1));
 			
 		    System.out.println(eval.toMatrixString());
 		    System.out.println(eval.toSummaryString());

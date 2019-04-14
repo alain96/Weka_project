@@ -46,7 +46,7 @@ public class AttributeSelectionClass{
 			AttributeSelection filter = new AttributeSelection();
 			InfoGainAttributeEval eval = new InfoGainAttributeEval();
 			Ranker search = new Ranker();
-			search.setNumToSelect(data.numAttributes()-2);
+			search.setNumToSelect(200);
 			filter.setSearch(search);
 			filter.setEvaluator(eval);
 			
